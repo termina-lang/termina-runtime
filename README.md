@@ -1,2 +1,2 @@
-# runtime
+# Termina runtime
 Termina runtime environment
