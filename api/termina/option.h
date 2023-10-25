@@ -33,7 +33,7 @@ typedef struct {
     __enum_Option_t __variant;
 
     // \brief The parameter of the Somevariant.
-    __enum_Option_Some_params_t __Some;
+    __enum_Option_Some_params_t Some;
 
 } Option;
 

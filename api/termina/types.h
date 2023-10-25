@@ -2,6 +2,7 @@
 #define __TERMINA__TYPES_H__
 
 #include <stdint.h>
+#include <stddef.h>
 
 
 /**
@@ -81,19 +82,19 @@ typedef struct {
 typedef struct {
 
     //! Address of the memory area that stores the blocks.
-    uint8_t * memory_area;
+    uintptr_t memory_area;
 
     //! Size of the memory area in bytes.
-    uint32_t memory_area_size;
+    size_t memory_area_size;
 
     //! Size of the data blocks.
-    uint32_t data_size;
+    size_t block_size;
 
     //! Number of free blocks.
-    uint32_t free_blocks;
+    size_t free_blocks;
 
     //! Address of the list of free blocks.
-    void * free_blocks_list;
+    uintptr_t free_blocks_list;
 
 } __termina_pool_t;
 

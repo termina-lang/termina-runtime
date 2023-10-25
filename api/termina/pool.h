@@ -10,14 +10,14 @@
 /**
  * \brief Initializes a memory pool.
  *
- * @param[in] pool          pointer to the pool to initialize.
- * @param[in] p_mem_block   pointer to the memory that will be used to allocate
- *                          the blocks.
- * @param[in] memory_size   size of the memory block.
- * @param[in] element_size  size of the elements of the pool.
+ * @param[in] pool              pointer to the pool to initialize.
+ * @param[in] p_memory_area     pointer to the memory that will be used to allocate
+ *                              the blocks.
+ * @param[in] memory_area_size  size of the memory area.
+ * @param[in] block_size        size of the blocks of the pool.
  */
-void __termina_pool_init(__termina_pool_t * pool, uint8_t * p_mem_block,
-                         size_t memory_size, size_t element_size);
+void __termina_pool_init(__termina_pool_t * const pool, void * p_memory_area,
+                         size_t memory_area_size, size_t block_size);
 
 /**
  * \brief Allocates an element from a given pool.
@@ -35,11 +35,12 @@ void __termina_pool_alloc(__termina_pool_t * const pool, Option * const opt);
  *
  * @param[in] pool     pointer to the pool from which the element will be
  *                     deallocated (freed).
- * @param[in] element  pointer to the element to deallocate.
+ * @param[in] element  dynamic element to deallocate.
  *
  * @return  Ok if the deallocation was successful. Error if the element did not
  *          belong to the pool.
  */
-Result __termina_pool_dealloc(__termina_pool_t * pool, void * element);
+void __termina_pool_dealloc(__termina_pool_t * const pool, 
+                            __termina_dyn_t element);
 
 #endif // __TERMINA__POOL_H__

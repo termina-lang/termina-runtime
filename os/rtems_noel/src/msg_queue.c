@@ -67,7 +67,7 @@ void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
 
     result->__variant = __Result_Ok;
 
-    status = rtems_message_queue_receive(*msg_queue, &opt->__Some.__0, &size,
+    status = rtems_message_queue_receive(*msg_queue, &opt->Some.__0, &size,
                                          RTEMS_WAIT, RTEMS_NO_TIMEOUT);
 
     if (RTEMS_SUCCESSFUL != status) {
@@ -78,8 +78,6 @@ void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
         result->Error.__0 = status;
 
     } 
-
-    return;
 
 }
 
@@ -99,7 +97,7 @@ void __termina_message_queue_receive_timed(
     uint32_t ticks = ((timeout->tv_sec * TICKS_PER_SEC) + 
              (timeout->tv_usec / USECS_PER_TICK));
 
-    status = rtems_message_queue_receive(*msg_queue, &opt->__Some.__0, &size,
+    status = rtems_message_queue_receive(*msg_queue, &opt->Some.__0, &size,
                                          RTEMS_WAIT, ticks);
 
     if (RTEMS_SUCCESSFUL != status) {
@@ -110,7 +108,5 @@ void __termina_message_queue_receive_timed(
         result->Error.__0 = status;
 
     }
-
-    return;
 
 }
