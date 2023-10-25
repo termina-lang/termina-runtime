@@ -8,7 +8,7 @@ void __termina_pool_init(__termina_pool_t * const pool,
                          void * p_memory_area, size_t memory_area_size, 
                          size_t block_size) {
 
-    if (pool == NULL) {
+    if (NULL == pool) {
 
         /* 
          * We are assuming that the address of pool will be

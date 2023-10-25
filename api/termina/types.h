@@ -15,24 +15,12 @@ typedef enum {
 } __enum_TaskRet_t;
 
 /**
- * \brief Structure that stores the parameter of the Error variant of the
- *        Result enumeration type. This parameter is runtime-dependent and
- *        is used to codify the source of the error.
- */
-typedef struct {
-    uint32_t __0;
-} __enum_TaskRet_Abort_params_t;
-
-/**
  * \brief Structure that implements the TaskRet type.
  */
 typedef struct {
 
     // \brief The current variant.
     __enum_TaskRet_t __variant;
-
-    // \brief The parameters of the Abort variant.
-    __enum_TaskRet_Abort_params_t Abort;
 
 } TaskRet;
 
@@ -46,24 +34,12 @@ typedef enum {
 } __enum_Result_t;
 
 /**
- * \brief Structure that stores the parameter of the Error variant of the
- *        Result enumeration type. This parameter is runtime-dependent and
- *        is used to codify the source of the error.
- */
-typedef struct {
-    uint32_t __0;
-} __enum_Result_Error_params_t;
-
-/**
  * \brief Structure that implements the Result type.
  */
 typedef struct {
 
     // \brief The current variant.
     __enum_Result_t __variant;
-
-    // \brief The parameters of the Error variant.
-    __enum_Result_Error_params_t Error;
 
 } Result;
 

@@ -3,8 +3,7 @@
 #include <termina.h>
 
 
-Result __termina_message_queue_init(uint32_t count, 
-                                    __termina_msg_queue_t * const msg_queue) {
+Result __termina_message_queue_init(__termina_msg_queue_t * const msg_queue) {
 
     rtems_status_code status;
     rtems_name r_name;
@@ -21,13 +20,13 @@ Result __termina_message_queue_init(uint32_t count,
 
     r_attributes = RTEMS_FIFO;
 
-    status = rtems_message_queue_create(r_name, count, sizeof(__termina_dyn_t),
-                                        r_attributes, msg_queue);
+    status = rtems_message_queue_create(r_name, msg_queue->count, 
+                                        sizeof(__termina_dyn_t),
+                                        r_attributes, &msg_queue->msg_queue_id);
 
     if (RTEMS_SUCCESSFUL != status) {
 
         result.__variant = __Result_Error;
-        result.Error.__0 = status;
 
     }
 
@@ -43,12 +42,12 @@ void __termina_message_queue_send(__termina_msg_queue_t * const msg_queue,
 
     result->__variant = __Result_Ok;
 
-    status = rtems_message_queue_send(*msg_queue, &element, sizeof(__termina_dyn_t));
+    status = rtems_message_queue_send(msg_queue->msg_queue_id, 
+                                      &element, sizeof(__termina_dyn_t));
 
     if (RTEMS_SUCCESSFUL != status) {
 
         result->__variant = __Result_Error;
-        result->Error.__0 = status;
 
     }
 
@@ -58,24 +57,19 @@ void __termina_message_queue_send(__termina_msg_queue_t * const msg_queue,
 
 
 void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
-                                     Option * const opt,
-                                     Result * const result) {
+                                     Option * const opt) {
     
     size_t size;
 
     rtems_status_code status;
 
-    result->__variant = __Result_Ok;
-
-    status = rtems_message_queue_receive(*msg_queue, &opt->Some.__0, &size,
+    status = rtems_message_queue_receive(msg_queue->msg_queue_id, 
+                                         &opt->Some.__0, &size,
                                          RTEMS_WAIT, RTEMS_NO_TIMEOUT);
 
     if (RTEMS_SUCCESSFUL != status) {
 
         opt->__variant = __Option_None;
-        
-        result->__variant = __Result_Error;
-        result->Error.__0 = status;
 
     } 
 
@@ -84,28 +78,24 @@ void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
 void __termina_message_queue_receive_timed(
                             __termina_msg_queue_t * const msg_queue, 
                             Option * const opt,
-                            const TimeVal * const timeout,
-                            Result * const result) {
+                            const TimeVal * const timeout) {
 
     size_t size;
 
     rtems_status_code status;
 
     opt->__variant = __Option_Some;
-    result->__variant = __Result_Ok;
 
     uint32_t ticks = ((timeout->tv_sec * TICKS_PER_SEC) + 
              (timeout->tv_usec / USECS_PER_TICK));
 
-    status = rtems_message_queue_receive(*msg_queue, &opt->Some.__0, &size,
+    status = rtems_message_queue_receive(msg_queue->msg_queue_id, 
+                                         &opt->Some.__0, &size,
                                          RTEMS_WAIT, ticks);
 
     if (RTEMS_SUCCESSFUL != status) {
 
         opt->__variant = __Option_None;
-        
-        result->__variant = __Result_Error;
-        result->Error.__0 = status;
 
     }
 
