@@ -9,9 +9,9 @@
  * \brief Enumeration of the possible variants of the TaskRet type.
  */
 typedef enum {
-    __TaskRet_Continue,
-    __TaskRet_Finish,
-    __TaskRet_Abort
+    TaskRet__Continue,
+    TaskRet__Finish,
+    TaskRet__Abort
 } __enum_TaskRet_t;
 
 /**
@@ -29,8 +29,8 @@ typedef struct {
  * \brief Enumeration of the possible variants of the Result type.
  */
 typedef enum {
-    __Result_Ok,
-    __Result_Error
+    Result__Ok,
+    Result__Error
 } __enum_Result_t;
 
 /**

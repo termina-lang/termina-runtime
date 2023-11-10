@@ -3,7 +3,7 @@
 #include <termina.h>
 
 
-Result __termina_task_create(__termina_task_t * const task) {
+Result __termina__task_create(__termina_task_t * const task) {
 
     rtems_status_code status;
     rtems_name r_name;
@@ -12,7 +12,7 @@ Result __termina_task_create(__termina_task_t * const task) {
 
     Result result;
 
-    result.__variant = __Result_Ok;
+    result.__variant = Result__Ok;
 
     NEXT_RESOURCE_NAME(ntask_name[0], ntask_name[1], ntask_name[2],
             ntask_name[3]);
@@ -36,13 +36,13 @@ Result __termina_task_create(__termina_task_t * const task) {
 
         if (RTEMS_SUCCESSFUL != status) {
             
-            result.__variant = __Result_Error;
+            result.__variant = Result__Error;
 
         }
 
     } else {
         
-        result.__variant = __Result_Error;
+        result.__variant = Result__Error;
 
     }
 

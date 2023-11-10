@@ -15,9 +15,11 @@
  *                              the blocks.
  * @param[in] memory_area_size  size of the memory area.
  * @param[in] block_size        size of the blocks of the pool.
+ *
+ * @return Ok if the pool was initialized successfully. Error otherwise.
  */
-void __termina_pool_init(__termina_pool_t * const pool, void * p_memory_area,
-                         size_t memory_area_size, size_t block_size);
+Result __termina__pool_init(__termina_pool_t * const pool, void * p_memory_area,
+                            size_t memory_area_size, size_t block_size);
 
 /**
  * \brief Allocates an element from a given pool.
@@ -28,7 +30,7 @@ void __termina_pool_init(__termina_pool_t * const pool, void * p_memory_area,
  *                  allocated element.
  *
  */
-void __termina_pool_alloc(__termina_pool_t * const pool, Option * const opt);
+void __termina__pool_alloc(__termina_pool_t * const pool, Option * const opt);
 
 /**
  * \brief Deallocates an element from a given pool.
@@ -40,7 +42,7 @@ void __termina_pool_alloc(__termina_pool_t * const pool, Option * const opt);
  * @return  Ok if the deallocation was successful. Error if the element did not
  *          belong to the pool.
  */
-void __termina_pool_dealloc(__termina_pool_t * const pool, 
+void __termina__pool_dealloc(__termina_pool_t * const pool, 
                             __termina_dyn_t element);
 
 #endif // __TERMINA__POOL_H__

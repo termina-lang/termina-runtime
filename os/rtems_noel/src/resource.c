@@ -2,13 +2,13 @@
 
 #include <termina.h>
 
-Result __termina_resource_init(__termina_resource_t * const resource) {
+Result __termina__resource_init(__termina_resource_t * const resource) {
 
     Result result;
 
-    result.__variant = __Result_Ok;
+    result.__variant = Result__Ok;
 
-    if (__termina_resource_lock_mutex == resource->lock) {
+    if (__RTEMSResourceLock__Mutex == resource->lock) {
 
         rtems_status_code status;
         rtems_name r_name;
@@ -20,7 +20,7 @@ Result __termina_resource_init(__termina_resource_t * const resource) {
                 nsem_name[3]);
 
         // check priority protocol
-        if (__termina_mutex_policy_inherit == resource->mutex.policy) {
+        if (__RTEMSMutexPolicy__Inherit == resource->mutex.policy) {
 
             attributes = RTEMS_PRIORITY | RTEMS_BINARY_SEMAPHORE
                 | RTEMS_INHERIT_PRIORITY;
@@ -37,7 +37,7 @@ Result __termina_resource_init(__termina_resource_t * const resource) {
 
         if (RTEMS_SUCCESSFUL != status) {
             
-            result.__variant = __Result_Error;
+            result.__variant = Result__Error;
 
         }
 
@@ -47,11 +47,15 @@ Result __termina_resource_init(__termina_resource_t * const resource) {
 
 }
 
-void __termina_resource_lock(__termina_resource_t * const resource) {
+void __termina__resource_lock(__termina_resource_t * const resource) {
 
     rtems_status_code status;
 
-    if (__termina_resource_lock_mutex == resource->lock) {
+    if (__RTEMSResourceLock__None == resource->lock) {
+
+        // Nothing to do here.
+
+    } else if (__RTEMSResourceLock__Mutex == resource->lock) {
         
         status = rtems_semaphore_obtain(resource->mutex.mutex_id, 
                     RTEMS_WAIT, RTEMS_NO_TIMEOUT);
@@ -74,12 +78,15 @@ void __termina_resource_lock(__termina_resource_t * const resource) {
 
 }
 
-void __termina_resource_unlock(__termina_resource_t * const resource) {
+void __termina__resource_unlock(__termina_resource_t * const resource) {
 
     rtems_status_code status;
 
+    if (__RTEMSResourceLock__None == resource->lock) {
 
-    if (__termina_resource_lock_mutex == resource->lock) {
+        // Nothing to do here.
+
+    } else if (__RTEMSResourceLock__Mutex == resource->lock) {
         
         status = rtems_semaphore_release(resource->mutex.mutex_id);
 

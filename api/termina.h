@@ -21,6 +21,8 @@
 
 #include <termina/resource.h>
 
+#include <termina/handler.h>
+
 #include <termina/task.h>
 
 #endif // __TERMINA_H__

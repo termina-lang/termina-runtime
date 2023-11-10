@@ -1,12 +1,14 @@
-#include <rtems.h>
 
 #include <termina.h>
 
 #define TERMINA_POOL_MINIMUM_BLOCK_SIZE sizeof(uintptr_t)
 
-void __termina_pool_init(__termina_pool_t * const pool,
-                         void * p_memory_area, size_t memory_area_size, 
-                         size_t block_size) {
+Result __termina__pool_init(__termina_pool_t * const pool,
+                            void * p_memory_area, size_t memory_area_size, 
+                            size_t block_size) {
+    Result result;
+
+    result.__variant = Result__Ok;
 
     if (NULL == pool) {
 
@@ -14,71 +16,85 @@ void __termina_pool_init(__termina_pool_t * const pool,
          * We are assuming that the address of pool will be
          * always within limits (i.e. belongs to the data section).
          * If it were NULL, then we must take action from the runtime
-         * and, most likely, go nuclear (rtems_shutdown_executive()).
+         * and, as default, go nuclear (rtems_shutdown_executive()).
          */
 
-    }
-
-    // Init the pool as if we were memseting it with zeores
-
-    for (size_t i = 0; i < sizeof(__termina_pool_t); i = i + 1) {
-
-        *(((uint8_t *) pool) + i) = 0;
+        result.__variant = Result__Error;
 
     }
 
-    // set the pool attributes.
+    if (result.__variant == Result__Ok) {
 
-    pool->memory_area = (uintptr_t)p_memory_area;
+        // Init the pool as if we were memseting it with zeores
 
-    pool->memory_area_size = memory_area_size;
-    /*
-     * Adjust the size of the element so that it is a multiple of
-     * TERMINA_POOL_MINIMUM_BLOCK_SIZE.
-     */
+        for (size_t i = 0; i < sizeof(__termina_pool_t); i = i + 1) {
 
-    if (block_size > 0) { 
+            *(((uint8_t *) pool) + i) = 0;
 
-        pool->block_size = block_size + 
-            (TERMINA_POOL_MINIMUM_BLOCK_SIZE - 
-                (block_size % TERMINA_POOL_MINIMUM_BLOCK_SIZE));
+        }
 
-    } else {
+        // set the pool attributes.
 
+        pool->memory_area = (uintptr_t)p_memory_area;
+
+        pool->memory_area_size = memory_area_size;
         /*
-         * TODO: We are going to assume that block_size can never be zero.
-         * If it were zero, then we must take action from the runtime
-         * and, most likely, go nuclear (rtems_shutdown_executive()).
+         * Adjust the size of the element so that it is a multiple of
+         * TERMINA_POOL_MINIMUM_BLOCK_SIZE.
          */
 
+        if (block_size > 0) { 
+
+            pool->block_size = block_size + 
+                (TERMINA_POOL_MINIMUM_BLOCK_SIZE - 
+                    (block_size % TERMINA_POOL_MINIMUM_BLOCK_SIZE));
+
+        } else {
+
+            /* 
+             * We are going to assume that block_size can never be zero.
+             * If it were zero, then we must take action from the runtime
+             * and, as default, go nuclear (rtems_shutdown_executive()).
+             */
+
+            result.__variant = Result__Error;
+
+        }
+
     }
 
-    // Init the list of free blocks to the start of the memory area
-    pool->free_blocks_list = pool->memory_area;
+    if (result.__variant == Result__Ok) {
 
-    // Obtain the maximum number of free blocks.
-    pool->free_blocks = pool->memory_area_size / pool->block_size;
+        // Init the list of free blocks to the start of the memory area
+        pool->free_blocks_list = pool->memory_area;
 
-    uintptr_t ptr = pool->free_blocks_list;
+        // Obtain the maximum number of free blocks.
+        pool->free_blocks = pool->memory_area_size / pool->block_size;
 
-    // Iterate for the number of blocks.
-    for (size_t i = 0; i < (pool->free_blocks - 1); i = i + 1) {
+        uintptr_t ptr = pool->free_blocks_list;
 
-        // Write pointer to the next block
-        *(uintptr_t *)ptr = ptr + block_size;
+        // Iterate for the number of blocks.
+        for (size_t i = 0; i < (pool->free_blocks - 1); i = i + 1) {
 
-        // Go the next block
-        ptr = ptr + block_size;
+            // Write pointer to the next block
+            *(uintptr_t *)ptr = ptr + block_size;
+
+            // Go the next block
+            ptr = ptr + block_size;
+
+        }
+
+        // NULL the "next" pointer of the last block.
+        *((uintptr_t *) ptr) = (uintptr_t)NULL;
 
     }
 
-    // NULL the "next" pointer of the last block.
-    *((uintptr_t *) ptr) = (uintptr_t)NULL;
+    return result;
 
 }
 
-void __termina_pool_alloc(__termina_pool_t * const pool,
-                          Option * const opt) {
+void __termina__pool_alloc(__termina_pool_t * const pool,
+                           Option * const opt) {
 
     opt->Some.__0.data = NULL;
 
@@ -101,8 +117,8 @@ void __termina_pool_alloc(__termina_pool_t * const pool,
 
 }
 
-void __termina_pool_dealloc(__termina_pool_t * const pool, 
-                            __termina_dyn_t element) {
+void __termina__pool_dealloc(__termina_pool_t * const pool, 
+                             __termina_dyn_t element) {
 
     uintptr_t ptr = (uintptr_t)element.data;
 

@@ -9,8 +9,8 @@
  *
  * @param[inout] task      the task.
  *
- * @return Ok if the task was created successfully. Error code otherwise.
+ * @return Ok if the task was created successfully. Error otherwise.
  */
-Result __termina_task_create(__termina_task_t * task);
+Result __termina__task_create(__termina_task_t * task);
 
 #endif // __TERMINA__TASK_H__

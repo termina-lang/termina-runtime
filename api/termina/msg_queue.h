@@ -12,11 +12,13 @@
  *        from termina code, but from the generated glue code.
  *
  * @param[inout] msg_queue  the message queue to initialize.
+ * @param[in]    num_msgs   maximum number of messages that can be enqueued.
  *
  * @return Ok if the message queue was created successfully. Error otherwise.
  */
 
-Result __termina_message_queue_init(__termina_msg_queue_t * const msg_queue);
+Result __termina__msg_queue_init(__termina_msg_queue_t * const msg_queue,
+                                 size_t num_msgs);
 
 /**
  * \brief Sends a message through the queue.
@@ -27,9 +29,9 @@ Result __termina_message_queue_init(__termina_msg_queue_t * const msg_queue);
  *                         be stored.
  *
  */
-void __termina_message_queue_send(__termina_msg_queue_t * const msg_queue, 
-                                  __termina_dyn_t element,
-                                  Result * const result);
+void __termina__msg_queue_send(__termina_msg_queue_t * const msg_queue, 
+                               __termina_dyn_t element,
+                               Result * const result);
 
 /**
  * \brief Receives a message from a queue. The task blocks forever until a
@@ -39,8 +41,8 @@ void __termina_message_queue_send(__termina_msg_queue_t * const msg_queue,
  * @param[out]    opt        pointer to the option element
  *
  */
-void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
-                                     Option * const opt);
+void __termina__msg_queue_receive(__termina_msg_queue_t * const msg_queue,
+                                  Option * const opt);
 
 /**
  * \brief Receives a message from a queue with a timeout.
@@ -50,9 +52,8 @@ void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
  * @param[in]     timeout    the maximum waiting time.
  *
  */
-void __termina_message_queue_receive_timed(
-                            __termina_msg_queue_t * const msg_queue, 
-                            Option * const opt,
-                            const TimeVal * const timeout);
+void __termina__msg_queue_receive_timed(__termina_msg_queue_t * const msg_queue,
+                                        Option * const opt,
+                                        const TimeVal * const timeout);
 
 #endif // __TERMINA__MSG_QUEUE_H___

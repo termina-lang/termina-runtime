@@ -1,4 +1,4 @@
-.PHONY: rtems_noel_spike
+.PHONY: rtems_noel_spike clean dist-clean
 
 export R:=$(shell pwd)
 

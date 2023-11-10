@@ -3,7 +3,8 @@
 #include <termina.h>
 
 
-Result __termina_message_queue_init(__termina_msg_queue_t * const msg_queue) {
+Result __termina__msg_queue_init(__termina_msg_queue_t * const msg_queue,
+                                 size_t num_msgs) {
 
     rtems_status_code status;
     rtems_name r_name;
@@ -11,7 +12,7 @@ Result __termina_message_queue_init(__termina_msg_queue_t * const msg_queue) {
 
     Result result;
 
-    result.__variant = __Result_Ok;
+    result.__variant = Result__Ok;
 
     NEXT_RESOURCE_NAME(nmsg_queue_name[0], nmsg_queue_name[1], nmsg_queue_name[2],
             nmsg_queue_name[3]);
@@ -20,13 +21,13 @@ Result __termina_message_queue_init(__termina_msg_queue_t * const msg_queue) {
 
     r_attributes = RTEMS_FIFO;
 
-    status = rtems_message_queue_create(r_name, msg_queue->count, 
+    status = rtems_message_queue_create(r_name, num_msgs, 
                                         sizeof(__termina_dyn_t),
                                         r_attributes, &msg_queue->msg_queue_id);
 
     if (RTEMS_SUCCESSFUL != status) {
 
-        result.__variant = __Result_Error;
+        result.__variant = Result__Error;
 
     }
 
@@ -34,20 +35,20 @@ Result __termina_message_queue_init(__termina_msg_queue_t * const msg_queue) {
 
 }
 
-void __termina_message_queue_send(__termina_msg_queue_t * const msg_queue, 
-                                  __termina_dyn_t element,
-                                  Result * const result) {
+void __termina__msg_queue_send(__termina_msg_queue_t * const msg_queue, 
+                               __termina_dyn_t element,
+                               Result * const result) {
 
     rtems_status_code status;
 
-    result->__variant = __Result_Ok;
+    result->__variant = Result__Ok;
 
     status = rtems_message_queue_send(msg_queue->msg_queue_id, 
                                       &element, sizeof(__termina_dyn_t));
 
     if (RTEMS_SUCCESSFUL != status) {
 
-        result->__variant = __Result_Error;
+        result->__variant = Result__Error;
 
     }
 
@@ -56,8 +57,8 @@ void __termina_message_queue_send(__termina_msg_queue_t * const msg_queue,
 }
 
 
-void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
-                                     Option * const opt) {
+void __termina__msg_queue_receive(__termina_msg_queue_t * const msg_queue,
+                                  Option * const opt) {
     
     size_t size;
 
@@ -75,10 +76,9 @@ void __termina_message_queue_receive(__termina_msg_queue_t * const msg_queue,
 
 }
 
-void __termina_message_queue_receive_timed(
-                            __termina_msg_queue_t * const msg_queue, 
-                            Option * const opt,
-                            const TimeVal * const timeout) {
+void __termina__msg_queue_receive_timed(__termina_msg_queue_t * const msg_queue, 
+                                        Option * const opt,
+                                        const TimeVal * const timeout) {
 
     size_t size;
 
