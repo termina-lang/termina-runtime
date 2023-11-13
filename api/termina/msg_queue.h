@@ -56,4 +56,15 @@ void __termina__msg_queue_receive_timed(__termina_msg_queue_t * const msg_queue,
                                         Option * const opt,
                                         const TimeVal * const timeout);
 
+/**
+ * \brief Tries to receive a message from a queue. If the queue was empty, the
+ *        function returns immediately.
+ *
+ * @param[inout]  msg_queue  the message queue.
+ * @param[in]     opt        pointer to the option element
+ *
+ */
+void __termina__msg_queue_try_receive(__termina_msg_queue_t * const msg_queue,
+                                      Option * const opt);
+
 #endif // __TERMINA__MSG_QUEUE_H___

@@ -86,12 +86,34 @@ void __termina__msg_queue_receive_timed(__termina_msg_queue_t * const msg_queue,
 
     opt->__variant = __Option_Some;
 
-    uint32_t ticks = ((timeout->tv_sec * TICKS_PER_SEC) + 
-             (timeout->tv_usec / USECS_PER_TICK));
+    rtems_interval ticks = 
+        (rtems_interval)(timeout->tv_sec * TICKS_PER_SEC) + 
+        (rtems_interval)(timeout->tv_usec / USECS_PER_TICK);
 
     status = rtems_message_queue_receive(msg_queue->msg_queue_id, 
                                          &opt->Some.__0, &size,
                                          RTEMS_WAIT, ticks);
+
+    if (RTEMS_SUCCESSFUL != status) {
+
+        opt->__variant = __Option_None;
+
+    }
+
+}
+
+void __termina__msg_queue_try_receive(__termina_msg_queue_t * const msg_queue, 
+                                      Option * const opt) {
+
+    size_t size;
+
+    rtems_status_code status;
+
+    opt->__variant = __Option_Some;
+
+    status = rtems_message_queue_receive(msg_queue->msg_queue_id, 
+                                         &opt->Some.__0, &size,
+                                         RTEMS_NO_WAIT, 0);
 
     if (RTEMS_SUCCESSFUL != status) {
 
