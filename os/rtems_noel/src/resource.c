@@ -2,7 +2,7 @@
 
 #include <termina.h>
 
-Result __termina__resource_init(__termina_resource_t * const resource) {
+Result __termina__resource_init(__termina__resource_t * const resource) {
 
     Result result;
 
@@ -14,7 +14,7 @@ Result __termina__resource_init(__termina_resource_t * const resource) {
         rtems_name r_name;
         rtems_attribute attributes = RTEMS_DEFAULT_ATTRIBUTES;
 
-        NEXT_RESOURCE_NAME(nsem_name[0], nsem_name[1], nsem_name[2], nsem_name[3]);
+        NEXT_OBJECT_NAME(nsem_name[0], nsem_name[1], nsem_name[2], nsem_name[3]);
 
         r_name = rtems_build_name(nsem_name[0], nsem_name[1], nsem_name[2],
                 nsem_name[3]);
@@ -47,7 +47,7 @@ Result __termina__resource_init(__termina_resource_t * const resource) {
 
 }
 
-void __termina__resource_lock(__termina_resource_t * const resource) {
+void __termina__resource_lock(__termina__resource_t * const resource) {
 
     rtems_status_code status;
 
@@ -78,7 +78,7 @@ void __termina__resource_lock(__termina_resource_t * const resource) {
 
 }
 
-void __termina__resource_unlock(__termina_resource_t * const resource) {
+void __termina__resource_unlock(__termina__resource_t * const resource) {
 
     rtems_status_code status;
 

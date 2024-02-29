@@ -8,63 +8,14 @@
 #include <termina/os/types.h>
 
 /**
- * \brief Initializes a message queue. This routine is not meant to be called 
- *        from termina code, but from the generated glue code.
- *
- * @param[inout] msg_queue  the message queue to initialize.
- * @param[in]    num_msgs   maximum number of messages that can be enqueued.
- *
- * @return Ok if the message queue was created successfully. Error otherwise.
- */
-
-Result __termina__msg_queue_init(__termina_msg_queue_t * const msg_queue,
-                                 size_t num_msgs);
-
-/**
  * \brief Sends a message through the queue.
  *
  * @param[in]   msg_queue  the message queue.
- * @param[in]   element    the element to be sent.
- * @param[out]  result     pointer to the location where the result value will
- *                         be stored.
+ * @param[in]   element    pointer to the element to be sent.
  *
  */
-void __termina__msg_queue_send(__termina_msg_queue_t * const msg_queue, 
-                               __termina_dyn_t element,
-                               Result * const result);
+void __termina__msg_queue_send(__termina__msg_queue_t * const msg_queue, 
+                               void * element);
 
-/**
- * \brief Receives a message from a queue. The task blocks forever until a
- *        message is received.
- *
- * @param[inout]  msg_queue  the message queue.
- * @param[out]    opt        pointer to the option element
- *
- */
-void __termina__msg_queue_receive(__termina_msg_queue_t * const msg_queue,
-                                  Option * const opt);
-
-/**
- * \brief Receives a message from a queue with a timeout.
- *
- * @param[inout]  msg_queue  the message queue.
- * @param[in]     opt        pointer to the option element
- * @param[in]     timeout    the maximum waiting time.
- *
- */
-void __termina__msg_queue_receive_timed(__termina_msg_queue_t * const msg_queue,
-                                        Option * const opt,
-                                        const TimeVal * const timeout);
-
-/**
- * \brief Tries to receive a message from a queue. If the queue was empty, the
- *        function returns immediately.
- *
- * @param[inout]  msg_queue  the message queue.
- * @param[in]     opt        pointer to the option element
- *
- */
-void __termina__msg_queue_try_receive(__termina_msg_queue_t * const msg_queue,
-                                      Option * const opt);
 
 #endif // __TERMINA__MSG_QUEUE_H___
