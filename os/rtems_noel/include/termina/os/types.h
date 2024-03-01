@@ -35,6 +35,11 @@ typedef rtems_id __termina__sink_port_t;
 typedef rtems_id __termina__in_port_t;
 
 /**
+ * \brief Type of the output ports.
+ */
+typedef __termina__msg_queue_t * __termina__out_port_t;
+
+/**
  * \brief Enumeration of the different types of mutex prioirty policies.
  */
 typedef enum {

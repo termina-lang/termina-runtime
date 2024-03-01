@@ -6,26 +6,6 @@
 
 
 /**
- * \brief Enumeration of the possible variants of the TaskRet type.
- */
-typedef enum {
-    TaskRet__Continue,
-    TaskRet__Finish,
-    TaskRet__Abort
-} __enum_TaskRet_t;
-
-/**
- * \brief Structure that implements the TaskRet type.
- */
-typedef struct {
-
-    // \brief The current variant.
-    __enum_TaskRet_t __variant;
-
-} TaskRet;
-
-
-/**
  * \brief Enumeration of the possible variants of the Result type.
  */
 typedef enum {
