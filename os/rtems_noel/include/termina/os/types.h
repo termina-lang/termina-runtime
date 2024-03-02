@@ -3,7 +3,28 @@
 
 #include <rtems.h>
 
-#include <termina/types.h>
+/**
+ * \brief Structure that implements the TimeVal type.
+ */
+typedef struct {
+    uint32_t tv_sec;
+    uint32_t tv_usec;
+} TimeVal;
+
+
+/**
+ * \brief Type of message queues.
+ */
+typedef struct {
+
+    // \brief Identifier of the task
+    rtems_id task_id;
+
+    // \brief Identifier of the task's notification message queue
+    rtems_id msgq_id;
+
+} __termina__task_t;
+
 
 /**
  * \brief Type of message queues.
@@ -87,5 +108,25 @@ typedef struct {
     };
 
 } __termina__resource_t;
+
+
+typedef struct {
+
+    // \brief Identifier of the timer
+    rtems_id timer_id;
+
+    // \brief Identifier of the single message queue of the receiver
+    rtems_id task_msgq_id;
+
+    // \brief Identifier of the message queue of the sink port of the receiver
+    rtems_id sink_msgq_id;
+
+    // \brief Identifier of the port to which the message queue is connected
+    uint32_t task_port;
+
+    // \brief the last programmed timer
+    TimeVal current;
+
+} __termina__timer_t;
 
 #endif // __TERMINA__OS__TYPES_H__

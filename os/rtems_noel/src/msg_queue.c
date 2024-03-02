@@ -3,8 +3,8 @@
 #include <termina.h>
 
 
-void __termina__msg_queue_send(__termina__msg_queue_t * const msg_queue, 
-                               void * element) {
+void __termina__msg_queue__send(__termina__msg_queue_t * const msg_queue, 
+                                void * element) {
 
     rtems_status_code status;
 

@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#include <termina/os/types.h>
 
 /**
  * \brief Enumeration of the possible variants of the Result type.
@@ -11,7 +12,7 @@
 typedef enum {
     Result__Ok,
     Result__Error
-} __enum_Result_t;
+} __enum__Result_t;
 
 /**
  * \brief Structure that implements the Result type.
@@ -19,23 +20,17 @@ typedef enum {
 typedef struct {
 
     // \brief The current variant.
-    __enum_Result_t __variant;
+    __enum__Result_t __variant;
 
 } Result;
-
-
-/**
- * \brief Structure that implements the TimeVal type.
- */
-typedef struct {
-    uint32_t tv_sec;
-    uint32_t tv_usec;
-} TimeVal;
 
 /**
  * \brief Structure used to implement memory pools.
  */
 typedef struct {
+
+    //! The resource structure
+    __termina__resource_t __resource;
 
     //! Address of the memory area that stores the blocks.
     uintptr_t memory_area;
@@ -52,7 +47,8 @@ typedef struct {
     //! Address of the list of free blocks.
     uintptr_t free_blocks_list;
 
-} __termina_pool_t;
+} __termina__pool_t;
+
 
 
 #endif // __TERMINA__TYPES_H__

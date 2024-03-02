@@ -14,8 +14,8 @@
  * @param[in]   element    pointer to the element to be sent.
  *
  */
-void __termina__msg_queue_send(__termina__msg_queue_t * const msg_queue, 
-                               void * element);
+void __termina__msg_queue__send(__termina__msg_queue_t * const msg_queue, 
+                                void * element);
 
 
 #endif // __TERMINA__MSG_QUEUE_H___

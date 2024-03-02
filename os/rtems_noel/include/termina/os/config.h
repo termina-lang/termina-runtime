@@ -1,6 +1,8 @@
 #ifndef __TERMINA__OS__CONFIG_H__
 #define __TERMINA__OS__CONFIG_H__
 
+#include <stdint.h>
+
 #include <termina/platform/config.h>
 
 #define NEXT_OBJECT_NAME(c1, c2, c3, c4)             \

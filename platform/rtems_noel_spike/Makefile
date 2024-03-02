@@ -17,7 +17,8 @@ CPPFLAGS:=-O0 -g3 -Wall --pipe -march=rv32im -mabi=ilp32 -B/opt/rtems-noel-1.0.4
 CPPFLAGS+=-I/opt/rtems-noel-1.0.4/kernel/riscv-rtems5/spike32im/lib/include 
 CPPFLAGS+=$(patsubst %,-I %,$(INCLUDE_DIRS))
 
-SRCS:=$(wildcard $R/os/rtems_noel/src/*.c)
+SRCS:=$(wildcard $R/common/*.c)
+SRCS+=$(wildcard $R/os/rtems_noel/src/*.c)
 
 OBJS:=$(patsubst %.c, %.o, $(patsubst $R/%, $R/lib/$(TARGET_FOLDER_NAME)/%, $(SRCS)))
 
