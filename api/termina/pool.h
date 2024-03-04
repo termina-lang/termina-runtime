@@ -5,7 +5,7 @@
 
 #include <termina/types.h>
 
-#define TERMINA_POOL_MINIMUM_ELEMENT_SIZE sizeof(void *)
+#define TERMINA_POOL_MINIMUM_BLOCK_SIZE sizeof(uintptr_t)
 
 /**
  * \brief Initializes a memory pool.

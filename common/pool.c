@@ -1,7 +1,6 @@
 
 #include <termina.h>
 
-#define TERMINA_POOL_MINIMUM_BLOCK_SIZE sizeof(uintptr_t)
 
 Result __termina__pool__init(__termina__pool_t * const pool,
                              void * p_memory_area, size_t memory_area_size, 
@@ -77,10 +76,10 @@ Result __termina__pool__init(__termina__pool_t * const pool,
         for (size_t i = 0; i < (pool->free_blocks - 1); i = i + 1) {
 
             // Write pointer to the next block
-            *(uintptr_t *)ptr = ptr + block_size;
+            *(uintptr_t *)ptr = ptr + pool->block_size;
 
             // Go the next block
-            ptr = ptr + block_size;
+            ptr = ptr + pool->block_size;
 
         }
 
