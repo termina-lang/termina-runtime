@@ -9,7 +9,7 @@ void __termina__msg_queue__send(__termina__msg_queue_t * const msg_queue,
     rtems_status_code status;
 
     status = rtems_message_queue_send(msg_queue->msgq_id, 
-                                      &element, msg_queue->message_size);
+                                      element, msg_queue->message_size);
 
     if (RTEMS_SUCCESSFUL == status) {
 
