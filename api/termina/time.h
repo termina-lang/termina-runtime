@@ -5,7 +5,7 @@
 
 typedef struct {
 
-    __termina__timer_t __timer;
+    __termina_timer_t __timer;
 
     TimeVal period;
 

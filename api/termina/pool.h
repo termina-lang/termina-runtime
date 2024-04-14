@@ -18,8 +18,8 @@
  *
  * @return Ok if the pool was initialized successfully. Error otherwise.
  */
-Result __termina__pool__init(__termina__pool_t * const pool, void * p_memory_area,
-                             size_t memory_area_size, size_t block_size);
+Result __termina_pool__init(__termina_pool_t * const pool, void * p_memory_area,
+                            size_t memory_area_size, size_t block_size);
 
 /**
  * \brief Allocates an element from a given pool.
@@ -30,7 +30,7 @@ Result __termina__pool__init(__termina__pool_t * const pool, void * p_memory_are
  *                  allocated element.
  *
  */
-void __termina__pool__alloc(__termina__pool_t * const pool, __option__dyn_t * const opt);
+void __termina_pool__alloc(__termina_pool_t * const pool, __option_dyn_t * const opt);
 
 /**
  * \brief Deallocates an element from a given pool.
@@ -42,7 +42,22 @@ void __termina__pool__alloc(__termina__pool_t * const pool, __option__dyn_t * co
  * @return  Ok if the deallocation was successful. Error if the element did not
  *          belong to the pool.
  */
-void __termina__pool__free(__termina__pool_t * const pool, 
-                           __termina__dyn_t element);
+void __termina_pool__free(__termina_pool_t * const pool, 
+                          __termina_dyn_t element);
+
+
+/**
+ * \brief Returns the size of the memory area for a given pool.
+ *
+ * @param[in] size       size of each element in bytes (as retured by the sizeof
+ *                       operator.
+ * @param[in] dimension  number of elements of the pool.
+ *
+ * @return  size of the memory area of the pool.
+ */
+#define __termina_pool__size(size, dimension) \
+	((size) + (TERMINA_POOL_MINIMUM_BLOCK_SIZE - \
+		((size) % TERMINA_POOL_MINIMUM_BLOCK_SIZE)) * (dimension))
+
 
 #endif // __TERMINA__POOL_H__

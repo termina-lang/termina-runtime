@@ -15,7 +15,7 @@
  *
  * @return Ok if the resource was initialized successfully. Error otherwise.
  */
-Result __termina__resource__init(__termina__resource_t * const resource);
+Result __termina_resource__init(__termina_resource_t * const resource);
 
 /**
  * \brief Locks a resource.
@@ -23,7 +23,7 @@ Result __termina__resource__init(__termina__resource_t * const resource);
  * @param[inout]  resource the resource.
  *
  */
-void __termina__resource__lock(__termina__resource_t * const resource);
+void __termina_resource__lock(__termina_resource_t * const resource);
 
 /**
  * \brief The resource to unlock.
@@ -31,6 +31,6 @@ void __termina__resource__lock(__termina__resource_t * const resource);
  * @param[inout]  resource  the resource.
  *
  */
-void __termina__resource__unlock(__termina__resource_t * const resource);
+void __termina_resource__unlock(__termina_resource_t * const resource);
 
 #endif // __TERMINA__RESOURCE_H___

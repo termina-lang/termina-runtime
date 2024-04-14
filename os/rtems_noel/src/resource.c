@@ -2,7 +2,7 @@
 
 #include <termina.h>
 
-Result __termina__resource__init(__termina__resource_t * const resource) {
+Result __termina_resource__init(__termina_resource_t * const resource) {
 
     Result result;
 
@@ -47,7 +47,7 @@ Result __termina__resource__init(__termina__resource_t * const resource) {
 
 }
 
-void __termina__resource__lock(__termina__resource_t * const resource) {
+void __termina_resource__lock(__termina_resource_t * const resource) {
 
     rtems_status_code status;
 
@@ -78,7 +78,7 @@ void __termina__resource__lock(__termina__resource_t * const resource) {
 
 }
 
-void __termina__resource__unlock(__termina__resource_t * const resource) {
+void __termina_resource__unlock(__termina_resource_t * const resource) {
 
     rtems_status_code status;
 

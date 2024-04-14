@@ -12,7 +12,7 @@
 typedef enum {
     Result__Ok,
     Result__Error
-} __enum__Result_t;
+} __enum_Result_t;
 
 /**
  * \brief Structure that implements the Result type.
@@ -20,7 +20,7 @@ typedef enum {
 typedef struct {
 
     // \brief The current variant.
-    __enum__Result_t __variant;
+    __enum_Result_t __variant;
 
 } Result;
 
@@ -30,7 +30,7 @@ typedef struct {
 typedef struct {
 
     //! The resource structure
-    __termina__resource_t __resource;
+    __termina_resource_t __resource;
 
     //! Address of the memory area that stores the blocks.
     uintptr_t memory_area;
@@ -47,7 +47,7 @@ typedef struct {
     //! Address of the list of free blocks.
     uintptr_t free_blocks_list;
 
-} __termina__pool_t;
+} __termina_pool_t;
 
 
 

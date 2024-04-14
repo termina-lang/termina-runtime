@@ -2,9 +2,9 @@
 #include <termina.h>
 
 
-Result __termina__pool__init(__termina__pool_t * const pool,
-                             void * p_memory_area, size_t memory_area_size, 
-                             size_t block_size) {
+Result __termina_pool__init(__termina_pool_t * const pool,
+                            void * p_memory_area, size_t memory_area_size, 
+                            size_t block_size) {
     Result result;
 
     result.__variant = Result__Ok;
@@ -26,7 +26,7 @@ Result __termina__pool__init(__termina__pool_t * const pool,
 
         // Init the pool as if we were memseting it with zeores
 
-        for (size_t i = 0; i < sizeof(__termina__pool_t); i = i + 1) {
+        for (size_t i = 0; i < sizeof(__termina_pool_t); i = i + 1) {
 
             *(((uint8_t *) pool) + i) = 0;
 
@@ -92,8 +92,8 @@ Result __termina__pool__init(__termina__pool_t * const pool,
 
 }
 
-void __termina__pool__alloc(__termina__pool_t * const pool,
-                            __option__dyn_t * const opt) {
+void __termina_pool__alloc(__termina_pool_t * const pool,
+                           __option_dyn_t * const opt) {
 
     opt->Some.__0.data = NULL;
 
@@ -116,8 +116,8 @@ void __termina__pool__alloc(__termina__pool_t * const pool,
 
 }
 
-void __termina__pool__free(__termina__pool_t * const pool, 
-                           __termina__dyn_t element) {
+void __termina_pool__free(__termina_pool_t * const pool, 
+                          __termina_dyn_t element) {
 
     uintptr_t ptr = (uintptr_t)element.data;
 

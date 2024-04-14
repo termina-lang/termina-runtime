@@ -23,7 +23,7 @@ typedef struct {
     // \brief Identifier of the task's notification message queue
     rtems_id msgq_id;
 
-} __termina__task_t;
+} __termina_task_t;
 
 
 /**
@@ -43,22 +43,22 @@ typedef struct {
     // \brief Size of the messages
     size_t message_size;
 
-} __termina__msg_queue_t;
+} __termina_msg_queue_t;
 
 /**
  * \brief Type of the task sink ports.
  */
-typedef rtems_id __termina__sink_port_t;
+typedef rtems_id __termina_sink_port_t;
 
 /**
  * \brief Type of the task input ports.
  */
-typedef rtems_id __termina__in_port_t;
+typedef rtems_id __termina_in_port_t;
 
 /**
  * \brief Type of the output ports.
  */
-typedef __termina__msg_queue_t * __termina__out_port_t;
+typedef __termina_msg_queue_t * __termina_out_port_t;
 
 /**
  * \brief Enumeration of the different types of mutex prioirty policies.
@@ -68,7 +68,7 @@ typedef enum {
     __RTEMSMutexPolicy__Inherit,
     __RTEMSMutexPolicy__Ceiling
 
-} __rtems__runtime_mutex_policy;
+} __rtems_runtime_mutex_policy;
 
 /**
  * \brief Enumeration of the different types of locking mechanisms.
@@ -79,35 +79,35 @@ typedef enum {
     __RTEMSResourceLock__Mutex,
     __RTEMSResourceLock__Irq
 
-} __rtems__runtime_resource_lock_t;
+} __rtems_runtime_resource_lock_t;
 
 typedef struct {
 
     // Id of the mutex 
     rtems_id mutex_id;
-    __rtems__runtime_mutex_policy policy;
+    __rtems_runtime_mutex_policy policy;
     rtems_task_priority prio_ceiling;
 
-} __rtems__runtime_resource_lock_mutex_params_t;
+} __rtems_runtime_resource_lock_mutex_params_t;
 
 typedef struct {
 
     // Previous interrupt level
     rtems_interrupt_level old_level;
 
-} __rtems__runtime_resource_lock_irq_params_t;
+} __rtems_runtime_resource_lock_irq_params_t;
 
 typedef struct {
 
     // Type of locking mechanism
-    __rtems__runtime_resource_lock_t lock;
+    __rtems_runtime_resource_lock_t lock;
 
     union {
-        __rtems__runtime_resource_lock_mutex_params_t mutex;
-        __rtems__runtime_resource_lock_irq_params_t irq;
+        __rtems_runtime_resource_lock_mutex_params_t mutex;
+        __rtems_runtime_resource_lock_irq_params_t irq;
     };
 
-} __termina__resource_t;
+} __termina_resource_t;
 
 
 typedef struct {
@@ -127,6 +127,6 @@ typedef struct {
     // \brief the last programmed timer
     TimeVal current;
 
-} __termina__timer_t;
+} __termina_timer_t;
 
 #endif // __TERMINA__OS__TYPES_H__
