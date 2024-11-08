@@ -30,7 +30,7 @@ Result __termina_pool__init(__termina_pool_t * const pool, void * p_memory_area,
  *                  allocated element.
  *
  */
-void __termina_pool__alloc(__termina_pool_t * const pool, __option_dyn_t * const opt);
+void __termina_pool__alloc(__termina_pool_t * const pool, __option_box_t * const opt);
 
 /**
  * \brief Deallocates an element from a given pool.
@@ -43,7 +43,7 @@ void __termina_pool__alloc(__termina_pool_t * const pool, __option_dyn_t * const
  *          belong to the pool.
  */
 void __termina_pool__free(__termina_pool_t * const pool, 
-                          __termina_dyn_t element);
+                          __termina_box_t element);
 
 
 /**
