@@ -13,6 +13,9 @@
 /* Termina operating system-dependent functions */
 #include <termina/os/os.h>
 
+/* Termina platform-dependent functions */
+#include <termina/platform/platform.h>
+
 /* Termina resource management interface */
 #include <termina/resource.h>
 

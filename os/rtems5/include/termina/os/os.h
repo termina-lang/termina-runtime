@@ -2,7 +2,6 @@
 #define __TERMINA__OS__OS_H__
 
 #include <rtems.h>
-#include <rtems/irq-extension.h>
 
 #include <termina/types.h>
 #include <termina/os/types.h>
@@ -51,18 +50,6 @@ rtems_status_code __rtems__create_task(rtems_task_priority initial_priority,
  */
 rtems_status_code __rtems__create_timer(rtems_id * id);
 
-
-/**
- * \brief Installs a new interrupt service routine.
- *
- * @param[in] vector        the interrupt vector.
- * @param[in] handler       the interrupt service routine to install.
- * 
- * @return the status code returned by the system call.
- *
- */
-rtems_status_code __rtems__install_isr(rtems_vector_number vector,
-                                       rtems_interrupt_handler handler);
 
 /**
  * \brief Programs a timer to wake up at a fixed point in time.
